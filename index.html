@@ -4,20 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TlalocLink - Monitor Hídrico Inteligente</title>
-  <!-- Hoja de estilos -->
   <link rel="stylesheet" href="estilos.css">
-  <!-- Biblioteca Chart.js para visualización de gráficas interactivas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-
   <aside class="barra-superior-entorno" id="barra-superior-entorno">
-    <div class="etiquetas-entorno">
-      <span class="distintivo-prototipo">PROTOTIPO v0.9.5-ALPHA</span>
-      <span class="distintivo-datos">DATOS SINTÉTICOS</span>
-      <span>ENTORNO DE PRUEBAS EXPERIMENTAL - TLALOCLINK</span>
-    </div>
     <div id="reloj-sistema-tiempo">
       <span>2026-10-30 14:00:00 UTC</span>
     </div>
@@ -29,15 +21,14 @@
         <h1>TLALOC<span class="subfijo">LINK</span></h1>
       </div>
 
-      <!-- Formulario para Conectar Channel ID y Read API Key de ThingSpeak -->
       <div class="bloque-conexion-thingspeak" id="bloque-conexion-thingspeak">
         <div class="campo-credencial">
-          <label for="campo-id-canal">ID Canal (Channel ID)</label>
-          <input type="text" id="campo-id-canal" value="2841092" placeholder="Ej. 2841092">
+          <label for="campo-id-canal">ID Canal</label>
+          <input type="text" id="campo-id-canal" value="2841092">
         </div>
         <div class="campo-credencial">
-          <label for="campo-clave-api">Clave API (Read Key)</label>
-          <input type="password" id="campo-clave-api" value="TLALOC_DEMO_KEY" placeholder="Read API Key">
+          <label for="campo-clave-api">Clave API</label>
+          <input type="password" id="campo-clave-api" value="TLALOC_DEMO_KEY">
         </div>
         <button class="boton-primario" id="boton-conectar-thingspeak" onclick="conectarCanalThingSpeak()">
           Conectar
@@ -48,17 +39,10 @@
         </div>
       </div>
 
-      <!-- Acciones de prueba rápida del simulador -->
-      <div style="display: flex; gap: 8px;">
-        <button class="boton-estilo" id="boton-alternar-simulacion" onclick="alternarSimulacion()">
-          Pausar
-        </button>
-        <button class="boton-estilo" id="boton-inyectar-fuga" onclick="inyectarEventoFuga()">
-          Simular Fuga
-        </button>
-        <button class="boton-estilo" id="boton-restablecer" onclick="restablecerValores()">
-          Restablecer
-        </button>
+      <div style="display: flex; gap: 4px;">
+        <button class="boton-estilo" id="boton-alternar-simulacion" onclick="alternarSimulacion()">Pausar</button>
+        <button class="boton-estilo" id="boton-inyectar-fuga" onclick="inyectarEventoFuga()">Simular Fuga</button>
+        <button class="boton-estilo" id="boton-restablecer" onclick="restablecerValores()">Restablecer</button>
       </div>
     </div>
   </header>
@@ -67,8 +51,6 @@
 
     <!-- SECCIÓN 1: TARJETAS DE MÉTRICAS PRINCIPALES -->
     <section class="cuadricula-metricas" id="cuadricula-metricas">
-
-      <!-- TARJETA: TURBIEDAD -->
       <article class="tarjeta-metrica" id="tarjeta-turbiedad">
         <div class="cabecera-tarjeta">
           <span class="nombre-variable">Turbiedad</span>
@@ -82,12 +64,11 @@
           <div class="progreso-nivel-visual" id="barra-turbiedad" style="width: 22%;"></div>
         </div>
         <div class="pie-tarjeta">
-          <span>Límite NOM-127: &lt; 5.0 NTU</span>
+          <span>NOM-127: &lt; 5.0 NTU</span>
           <span id="rango-turbiedad">Adecuada</span>
         </div>
       </article>
 
-      <!-- TARJETA: pH -->
       <article class="tarjeta-metrica" id="tarjeta-ph">
         <div class="cabecera-tarjeta">
           <span class="nombre-variable">Potencial de Hidrógeno</span>
@@ -101,12 +82,11 @@
           <div class="progreso-nivel-visual" id="barra-ph" style="width: 52%;"></div>
         </div>
         <div class="pie-tarjeta">
-          <span>Rango Óptimo: 6.5 - 8.5</span>
+          <span>Óptimo: 6.5 - 8.5</span>
           <span id="rango-ph">Equilibrado</span>
         </div>
       </article>
 
-      <!-- TARJETA: NIVELES DE ALMACENAMIENTO (TINACO Y CISTERNA) -->
       <article class="tarjeta-metrica" id="tarjeta-niveles">
         <div class="cabecera-tarjeta">
           <span class="nombre-variable">Nivel de Agua</span>
@@ -118,7 +98,7 @@
               <span>Tinaco (1,100 L)</span>
               <strong id="texto-nivel-tinaco">82%</strong>
             </div>
-            <div class="barra-nivel-visual" style="margin: 0;">
+            <div class="barra-nivel-visual">
               <div class="progreso-nivel-visual" id="barra-tinaco" style="width: 82%;"></div>
             </div>
           </div>
@@ -127,18 +107,17 @@
               <span>Cisterna (5,000 L)</span>
               <strong id="texto-nivel-cisterna">91%</strong>
             </div>
-            <div class="barra-nivel-visual" style="margin: 0;">
+            <div class="barra-nivel-visual">
               <div class="progreso-nivel-visual" id="barra-cisterna" style="width: 91%;"></div>
             </div>
           </div>
         </div>
-        <div class="pie-tarjeta" style="margin-top: 8px;">
-          <span>Volumen Total: <strong id="texto-litros-totales">5,450 L</strong></span>
+        <div class="pie-tarjeta" style="margin-top: 4px;">
+          <span>Total: <strong id="texto-litros-totales">5,450 L</strong></span>
           <span>Bomba: <strong id="texto-estado-bomba">En reposo</strong></span>
         </div>
       </article>
 
-      <!-- TARJETA: CAUDAL -->
       <article class="tarjeta-metrica" id="tarjeta-caudal">
         <div class="cabecera-tarjeta">
           <span class="nombre-variable">Caudal de Flujo</span>
@@ -152,40 +131,35 @@
           <div class="progreso-nivel-visual" id="barra-caudal" style="width: 38%;"></div>
         </div>
         <div class="pie-tarjeta">
-          <span>Consumo Diario: <strong id="texto-consumo-acumulado">0.38 m³</strong></span>
-          <span id="texto-tipo-flujo">Doméstico Regular</span>
+          <span>Consumo: <strong id="texto-consumo-acumulado">0.38 m³</strong></span>
+          <span id="texto-tipo-flujo">Regular</span>
         </div>
       </article>
-
     </section>
 
     <!-- SECCIÓN 2: GRÁFICAS DE EVOLUCIÓN TEMPORAL -->
     <section class="seccion-panel-blanco" id="seccion-graficas">
       <div class="barra-titulo-seccion">
         <h2 class="titulo-seccion">Evolución Temporal del Sistema</h2>
-        <div style="display: flex; gap: 6px;">
-          <button class="boton-estilo activo" id="boton-puntos-30" onclick="cambiarCantidadMuestras(30)">30 puntos</button>
-          <button class="boton-estilo" id="boton-puntos-60" onclick="cambiarCantidadMuestras(60)">60 puntos</button>
+        <div style="display: flex; gap: 4px;">
+          <button class="boton-estilo activo" id="boton-puntos-30" onclick="cambiarCantidadMuestras(30)">30 pts</button>
+          <button class="boton-estilo" id="boton-puntos-60" onclick="cambiarCantidadMuestras(60)">60 pts</button>
         </div>
       </div>
 
       <div class="cuadricula-dos-columnas">
-        <!-- Gráfica Hidráulica -->
         <div class="caja-grafica">
           <div class="subtitulo-grafica">
             <span>Niveles de Agua y Caudal</span>
-            <span>Tinaco / Cisterna / Flujo</span>
           </div>
           <div class="lienzo-grafica-ajustable">
             <canvas id="grafica-hidraulica-lienzo"></canvas>
           </div>
         </div>
 
-        <!-- Gráfica Fisicoquímica -->
         <div class="caja-grafica">
           <div class="subtitulo-grafica">
-            <span>Calidad del Agua</span>
-            <span>Turbiedad y pH</span>
+            <span>Calidad del Agua (Turbiedad y pH)</span>
           </div>
           <div class="lienzo-grafica-ajustable">
             <canvas id="grafica-calidad-lienzo"></canvas>
@@ -194,88 +168,71 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 3: MÓDULO DE ANÁLISIS AVANZADO (CLÚSTERES Y MATRIZ DE CONFUSIÓN) -->
+    <!-- SECCIÓN 3: MÓDULO DE ANÁLISIS AVANZADO -->
     <section class="seccion-panel-blanco" id="seccion-analisis-avanzado">
       <div class="barra-titulo-seccion">
         <h2 class="titulo-seccion">Análisis de Operación y Detección de Fugas</h2>
-        <span class="insignia-estado">Algoritmo K-Means &amp; Clasificador Supervisado</span>
+        <span class="insignia-estado">K-Means</span>
       </div>
 
       <div class="contenedor-analisis-simplificado">
-        <!-- Visualización de Clústeres de Operación -->
         <div class="caja-clusteres">
           <div class="subtitulo-grafica">
-            <span>Espacio de Estados (Clústeres de Demanda)</span>
-            <span>Caudal vs. Variación de Nivel</span>
+            <span>Espacio de Estados (Caudal vs. Variación)</span>
           </div>
-          <div class="lienzo-grafica-ajustable" style="height: 220px;">
+          <div class="lienzo-grafica-ajustable" style="height: 180px;">
             <canvas id="grafica-clusteres-lienzo"></canvas>
           </div>
           <div class="leyenda-clusteres-simplificada">
             <div class="item-cluster-chip">
               <span class="color-chip" style="background-color: #2c699a;"></span>
-              <span>Reposo Nocturno</span>
+              <span>Reposo</span>
             </div>
             <div class="item-cluster-chip">
               <span class="color-chip" style="background-color: #1b4965;"></span>
-              <span>Consumo Normal</span>
+              <span>Consumo</span>
             </div>
             <div class="item-cluster-chip">
               <span class="color-chip" style="background-color: #61a5c2;"></span>
-              <span>Llenado de Tinaco</span>
+              <span>Llenado</span>
             </div>
             <div class="item-cluster-chip">
               <span class="color-chip" style="background-color: #0a192f;"></span>
-              <span>Fuga o Anomalía</span>
+              <span>Fuga</span>
             </div>
           </div>
         </div>
 
-        <!-- Matriz de Confusión Simplificada -->
         <div class="caja-matriz-diagnostico">
           <div class="subtitulo-grafica">
             <span>Matriz de Detección de Fugas</span>
-            <span>Precisión Diagnóstica</span>
           </div>
 
           <div class="matriz-compacta-visual">
-            <div style="font-size: 0.65rem; font-family: var(--fuente-mono); color: var(--texto-atenuado); font-weight: 700;">
-              PREDICCIÓN DEL MODELO
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.62rem; font-family: var(--fuente-mono); color: var(--texto-atenuado); font-weight: 700;">
-                REALIDAD
+            <div class="rejilla-matriz-simple">
+              <div class="celda-diagnostico positiva">
+                <span class="etiqueta-celda-mini">Correcto (Normal)</span>
+                <span class="valor-celda-destacado" id="conteo-vn">1420</span>
+                <span class="porcentaje-mini" id="porcentaje-vn">83.5%</span>
               </div>
-              <div class="rejilla-matriz-simple">
-                <!-- VN -->
-                <div class="celda-diagnostico positiva">
-                  <span class="etiqueta-celda-mini">Correcto (Normal)</span>
-                  <span class="valor-celda-destacado" id="conteo-vn">1420</span>
-                  <span class="porcentaje-mini" id="porcentaje-vn">83.5%</span>
-                </div>
-                <!-- FP -->
-                <div class="celda-diagnostico alarma">
-                  <span class="etiqueta-celda-mini">Falsa Alarma</span>
-                  <span class="valor-celda-destacado" id="conteo-fp">18</span>
-                  <span class="porcentaje-mini" id="porcentaje-fp">1.1%</span>
-                </div>
-                <!-- FN -->
-                <div class="celda-diagnostico alarma">
-                  <span class="etiqueta-celda-mini">Fuga Omitida</span>
-                  <span class="valor-celda-destacado" id="conteo-fn">12</span>
-                  <span class="porcentaje-mini" id="porcentaje-fn">0.7%</span>
-                </div>
-                <!-- VP -->
-                <div class="celda-diagnostico positiva">
-                  <span class="etiqueta-celda-mini">Fuga Detectada</span>
-                  <span class="valor-celda-destacado" id="conteo-vp">250</span>
-                  <span class="porcentaje-mini" id="porcentaje-vp">14.7%</span>
-                </div>
+              <div class="celda-diagnostico alarma">
+                <span class="etiqueta-celda-mini">Falsa Alarma</span>
+                <span class="valor-celda-destacado" id="conteo-fp">18</span>
+                <span class="porcentaje-mini" id="porcentaje-fp">1.1%</span>
+              </div>
+              <div class="celda-diagnostico alarma">
+                <span class="etiqueta-celda-mini">Fuga Omitida</span>
+                <span class="valor-celda-destacado" id="conteo-fn">12</span>
+                <span class="porcentaje-mini" id="porcentaje-fn">0.7%</span>
+              </div>
+              <div class="celda-diagnostico positiva">
+                <span class="etiqueta-celda-mini">Fuga Detectada</span>
+                <span class="valor-celda-destacado" id="conteo-vp">250</span>
+                <span class="porcentaje-mini" id="porcentaje-vp">14.7%</span>
               </div>
             </div>
           </div>
 
-          <!-- Métricas Resumen Claras (KPIs) -->
           <div class="fila-kpis-rendimiento">
             <div class="tarjeta-kpi">
               <div class="titulo-kpi">Exactitud</div>
@@ -291,7 +248,6 @@
             </div>
           </div>
 
-          <!-- Control de Sensibilidad -->
           <div class="control-sensibilidad-simple">
             <span>Sensibilidad:</span>
             <input type="range" id="deslizador-sensibilidad" min="0.1" max="0.9" step="0.05" value="0.5" oninput="cambiarSensibilidad(this.value)">
@@ -301,48 +257,13 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 4: INGESTA DE DATOS (CSV Y REGISTRO) -->
-    <section class="seccion-panel-blanco" id="seccion-datos-csv">
+    <!-- SECCIÓN 4: VISTA DE REGISTRO EN TABLA (SIN INGESTA/SIMULACIÓN) -->
+    <section class="seccion-panel-blanco" id="seccion-tabla-registros">
       <div class="barra-titulo-seccion">
-        <h2 class="titulo-seccion">Ingesta y Simulación de Datos ThingSpeak</h2>
-        <span class="insignia-estado" id="estado-lector-csv">En espera de datos</span>
+        <h2 class="titulo-seccion">Registro Histórico de Telemetría</h2>
+        <span class="insignia-estado" id="estado-lector-csv">En ejecución</span>
       </div>
 
-      <div class="cuadricula-carga-datos">
-        <!-- Bloque de archivo -->
-        <div class="bloque-accion-archivo">
-          <div class="zona-suelta-archivo" onclick="document.getElementById('entrada-csv-archivo').click()">
-            <span class="texto-zona-archivo">Seleccionar archivo CSV de ThingSpeak</span>
-            <span class="texto-sub-archivo">Formatos compatibles: feeds.csv exportado desde canal ThingSpeak</span>
-            <input type="file" id="entrada-csv-archivo" style="display: none;" accept=".csv" onchange="manejarArchivoCsv(event)">
-          </div>
-
-          <div class="fila-botones-csv">
-            <button class="boton-primario" onclick="descargarCsvEjemplo()">
-              Descargar CSV Ejemplo
-            </button>
-            <button class="boton-estilo" onclick="cargarLoteDemostracion()">
-              Cargar Lote Demo
-            </button>
-            <button class="boton-estilo" onclick="limpiarConsola()">
-              Limpiar Registro
-            </button>
-          </div>
-        </div>
-
-        <!-- Consola de Registro Limpia -->
-        <div class="caja-consola-actividad">
-          <div class="cabecera-consola-actividad">
-            <span>Registro de Actividad y Eventos</span>
-            <span id="contador-eventos">0 entradas</span>
-          </div>
-          <div class="cuerpo-consola-actividad" id="contenedor-lineas-consola">
-            <!-- Entradas inyectadas por JavaScript -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Tabla previa compacta -->
       <div class="contenedor-tabla-simple">
         <table class="tabla-simple">
           <thead>
@@ -364,14 +285,12 @@
       </div>
     </section>
 
-    <!-- PIE DE PÁGINA -->
     <footer class="pie-pagina">
       TlalocLink - Sistema de Monitoreo de Recursos Hídricos | Prototipo Experimental de Ingeniería
     </footer>
 
   </main>
 
-  <!-- Script desacoplado con la lógica de la aplicación -->
   <script src="aplicacion.js"></script>
 </body>
 </html>
